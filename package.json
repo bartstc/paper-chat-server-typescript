@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": "10.15.3"
+  },
   "scripts": {
     "start:build": "tsc -w",
     "start:run": "nodemon build/server.js",
-    "start": "concurrently npm:start:*"
+    "start": "concurrently npm:start:*",
+    "build": "rimraf build && tsc"
   },
   "author": "Bart",
   "license": "ISC",
@@ -34,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
     "nodemon": "^1.19.1",
+    "rimraf": "^2.6.3",
     "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   }

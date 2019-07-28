@@ -1,6 +1,5 @@
 /node_modules
-/build
-/client
+/client/node_modules
 .env
-.env.prod
+Dockerfile
 docker-compose.yml
