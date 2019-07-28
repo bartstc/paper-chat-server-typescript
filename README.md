@@ -28,7 +28,7 @@ Fullstack app written in React, Express and TypeScript (backend). The applicatio
 
 ## Preview
 
-[Paper Chat](https://morning-wave-69516.herokuapp.com/)
+[Paper Chat](https://radiant-taiga-70232.herokuapp.com/)
 
 ## License
 
