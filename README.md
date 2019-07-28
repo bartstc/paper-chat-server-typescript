@@ -23,6 +23,11 @@ Fullstack app written in React, Express and TypeScript (backend). The applicatio
 * Try Slate.js library
 * Try Nest.js framework
 * Try Node.js and Express with TypeScript
+* Try Docker
+
+## Preview
+
+[Paper Chat](https://morning-wave-69516.herokuapp.com/)
 
 ## License
 
