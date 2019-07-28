@@ -16,6 +16,7 @@ Fullstack app written in React, Express and TypeScript (backend). The applicatio
 * [JSON Web Token](https://jwt.io/) for auth
 * [TypeORM](https://typeorm.io/#/) ORM
 * [PostgreSQL](https://www.postgresql.org/) database
+* [Docker](https://www.docker.com/)
 
 ## Project Learning Goals
 
