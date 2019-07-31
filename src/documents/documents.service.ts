@@ -7,7 +7,7 @@ import { DocumentNotFoundException } from '../exceptions/DocumentNotFoundExcepti
 export class DocumentsService {
   private documentRepository = getRepository(Document);
 
-  async getUserDocuments(user: User): Promise<Document[]> {
+  public async getUserDocuments(user: User): Promise<Document[]> {
     const documents = await this.documentRepository
       .createQueryBuilder()
       .where('userid = :userid', { userid: user.id })
@@ -16,7 +16,7 @@ export class DocumentsService {
     return documents;
   }
 
-  async getDocumentById(id: number, user: User) {
+  public async getDocumentById(id: number, user: User) {
     try {
       const found = await this.documentRepository.findOne({
         where: { id, userId: user.id }
@@ -27,7 +27,7 @@ export class DocumentsService {
     }
   }
 
-  async createDocument(
+  public async createDocument(
     createDocumentDTO: CreateDocumentDTO,
     user: User
   ): Promise<Document> {
@@ -42,7 +42,7 @@ export class DocumentsService {
     return newDocument;
   }
 
-  async updateDocument(id: number, text: string, user: User) {
+  public async updateDocument(id: number, text: string, user: User) {
     try {
       const document = await this.getDocumentById(id, user);
       if (document) {
@@ -55,7 +55,7 @@ export class DocumentsService {
     }
   }
 
-  async deleteDocument(id: number, user: User): Promise<void> {
+  public async deleteDocument(id: number, user: User): Promise<void> {
     const result = await this.documentRepository.delete({
       id,
       userid: user.id

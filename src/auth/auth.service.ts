@@ -24,14 +24,9 @@ export class AuthService {
 
     if (existingUser.length !== 0) throw new EmailOrUsernameInUseException();
 
-    // should be separated method in authRepository...
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const newUser = this.userRepository.create({
-      ...userData,
-      password: hashedPassword
-    });
-
+    const newUser = this.userRepository.create({ ...userData });
     const savedUser = await this.userRepository.save(newUser);
+
     const user = { id: savedUser.id, username: savedUser.username };
 
     const { token } = this.createToken(savedUser);
@@ -60,7 +55,7 @@ export class AuthService {
     }
   }
 
-  public createToken(user: User): TokenData {
+  private createToken(user: User): TokenData {
     const expiresIn = 60 * 60; // an hour
     const secret = process.env.JWT_SECRET;
     const dataStoredInToken: DataStoredInToken = {
