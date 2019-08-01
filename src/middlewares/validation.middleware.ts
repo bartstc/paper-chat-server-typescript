@@ -7,13 +7,12 @@ export const validationMiddleware = (
   type: any,
   skipMissingProperties = false
 ): RequestHandler => {
-  return (req, res, next) => {
+  return (req, _, next) => {
     validate(plainToClass(type, req.body), { skipMissingProperties }).then(
       (errors: ValidationError[]) => {
         if (errors.length > 0) {
-          const message = errors
-            .map((error: ValidationError) => Object.values(error.constraints))
-            .join(', ');
+          // get first error message from array of ValidationErrors
+          const message = Object.values(errors[0].constraints)[0];
           next(new HttpException(400, message));
         } else {
           next();
