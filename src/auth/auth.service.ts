@@ -27,25 +27,21 @@ export class AuthService {
     const newUser = this.userRepository.create({ ...userData });
     const savedUser = await this.userRepository.save(newUser);
 
-    const user = { id: savedUser.id, username: savedUser.username };
-
-    const { token } = this.createToken(savedUser);
-    return { token, ...user };
+    const { token } = this.createToken(savedUser.id);
+    return { token, id: savedUser.id, username: savedUser.username };
   }
 
   public async signIn(loginData: LoginUserDTO) {
-    const existingUser = await this.userRepository.findOne({
-      email: loginData.email
-    });
+    const { email, password } = loginData;
+
+    const existingUser = await this.userRepository.findOne({ email });
+
     if (existingUser) {
-      const isMatch = await bcrypt.compare(
-        loginData.password,
-        existingUser.password
-      );
+      const isMatch = await bcrypt.compare(password, existingUser.password);
       if (isMatch) {
         const user = { id: existingUser.id, username: existingUser.username };
 
-        const { token } = this.createToken(existingUser);
+        const { token } = this.createToken(existingUser.id);
         return { token, ...user };
       } else {
         throw new WrongCredentialsException();
@@ -55,12 +51,10 @@ export class AuthService {
     }
   }
 
-  private createToken(user: User): TokenData {
+  public createToken(id: number): TokenData {
     const expiresIn = 60 * 60; // an hour
     const secret = process.env.JWT_SECRET;
-    const dataStoredInToken: DataStoredInToken = {
-      id: user.id
-    };
+    const dataStoredInToken: DataStoredInToken = { id };
 
     if (secret) {
       const token = jwt.sign(dataStoredInToken, secret, { expiresIn });
