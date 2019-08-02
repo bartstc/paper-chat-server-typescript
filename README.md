@@ -1,3 +1,5 @@
+*Server stack and structure inspired by [mwanago](https://github.com/mwanago/express-typescript) and Nest.js modular architecture.*
+
 # Paper Chat
 
 Fullstack app written in React, Express and TypeScript (backend). The application uses the Slate.js library to create a rich text editor. You can add, save, update and read documents. For now, the project is not finished, the end result is to be able to edit documents by many users live (simple google docks clone).
@@ -16,6 +18,7 @@ Fullstack app written in React, Express and TypeScript (backend). The applicatio
 * [JSON Web Token](https://jwt.io/) for auth
 * [TypeORM](https://typeorm.io/#/) ORM
 * [PostgreSQL](https://www.postgresql.org/) database
+* [Docker](https://www.docker.com/)
 
 ## Project Learning Goals
 
@@ -23,6 +26,11 @@ Fullstack app written in React, Express and TypeScript (backend). The applicatio
 * Try Slate.js library
 * Try Nest.js framework
 * Try Node.js and Express with TypeScript
+* Try Docker
+
+## Preview
+
+[Paper Chat](https://radiant-taiga-70232.herokuapp.com/)
 
 ## License
 
