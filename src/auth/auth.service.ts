@@ -6,7 +6,6 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { EmailOrUsernameInUseException } from '../exceptions/EmailOrUsernameInUseException';
 import { HttpException } from '../exceptions/HttpException';
 import { DataStoredInToken } from '../interfaces/dataStoredInToken.interface';
-import { TokenData } from '../interfaces/tokenData.interface';
 import { LoginUserDTO } from './dto/login-user.dto';
 import { WrongCredentialsException } from '../exceptions/WrongCredentialException';
 
@@ -20,14 +19,14 @@ export class AuthService {
         username: userData.username,
         email: userData.email
       })
-      .getMany();
+      .getOne();
 
-    if (existingUser.length !== 0) throw new EmailOrUsernameInUseException();
+    if (existingUser) throw new EmailOrUsernameInUseException();
 
     const newUser = this.userRepository.create({ ...userData });
     const savedUser = await this.userRepository.save(newUser);
 
-    const { token } = this.createToken(savedUser.id);
+    const token = this.createToken(savedUser.id);
     return { token, id: savedUser.id, username: savedUser.username };
   }
 
@@ -41,7 +40,7 @@ export class AuthService {
       if (isMatch) {
         const user = { id: existingUser.id, username: existingUser.username };
 
-        const { token } = this.createToken(existingUser.id);
+        const token = this.createToken(existingUser.id);
         return { token, ...user };
       } else {
         throw new WrongCredentialsException();
@@ -51,14 +50,14 @@ export class AuthService {
     }
   }
 
-  public createToken(id: number): TokenData {
+  public createToken(id: number) {
     const expiresIn = 60 * 60; // an hour
     const secret = process.env.JWT_SECRET;
     const dataStoredInToken: DataStoredInToken = { id };
 
     if (secret) {
       const token = jwt.sign(dataStoredInToken, secret, { expiresIn });
-      return { token };
+      return token;
     } else throw new HttpException(500, 'Something goes wrong');
   }
 }

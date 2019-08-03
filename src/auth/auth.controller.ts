@@ -68,9 +68,4 @@ export class AuthController implements Controller {
     const { id, username }: User = req.user;
     res.status(200).json({ id, username });
   };
-
-  // private logout = async (req: Request, res: Response): Promise<void> => {
-  //   res.setHeader('Set-Cookie', ['Authorization=;Max-age=0']);
-  //   res.status(200).json({ success: true });
-  // };
 }
