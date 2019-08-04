@@ -3,4 +3,3 @@
 /client
 .env
 .env.prod
-docker-compose.yml

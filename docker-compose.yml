@@ -1,0 +1,38 @@
+version: '3'
+services:
+  postgres:
+    container_name: postgresdb
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: bart123
+      POSTGRES_DB: paper-chat
+  server:
+    depends_on:
+      - postgres
+    container_name: paperchat-server
+    build: ./
+    # image: node:latest
+    # command: npm run start:dev
+    ports:
+      - '5000:5000'
+    links:
+      - postgres
+    environment:
+      PORT: 5000
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: postgres
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: bart123
+      POSTGRES_DB: paper-chat
+      JWT_SECRET: supersecret
+# docker-compose build // build
+# docker-compose up --build // rebuild
+# docker-compose up // run
+# docker-compose down // remove
+
+# docker-compose up -d // run in backgound (first terminal)
+# docker-compose exec server bash // execute command, go to bash (second terminal)

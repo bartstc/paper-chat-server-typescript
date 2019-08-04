@@ -23,5 +23,6 @@ const productionConfig: ConnectionOptions = {
 };
 
 export const config =
-  process.env.NODE_ENV === 'production' ? productionConfig : developmentConfig;
+  // process.env.NODE_ENV === 'production' ? productionConfig : developmentConfig;
+  developmentConfig;
 // conditional export: https://stackoverflow.com/questions/13444064/typescript-conditional-module-import-export
